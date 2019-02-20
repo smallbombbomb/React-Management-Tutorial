@@ -1,5 +1,7 @@
 ## Management System
-본 프로젝트는 React 실습 목적만들어진 고객관리시스템
+본 프로젝트는 React 실습 목적으로 만들어진 고객관리시스템
+This project is a customer management system created by React.js
+这项工程是由"React.js"创建的客户管理系统
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
