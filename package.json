@@ -3,11 +3,13 @@
     "version": "1.0.0",
     "scripts": {
         "client": "cd client && yarn start",
-        "server": "nodemon server.js",
+        "server": "node server.js",
         "dev": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
     },
     "dependencies": {
+        "Promise": "^1.0.5",
         "body-parser": "^1.18.3",
+        "es6-promise": "^4.2.6",
         "express": "^4.16.4"
     },
     "devDependencies": {

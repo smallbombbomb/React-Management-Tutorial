@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-//import logo from './logo.svg';
-import './App.css';
+import 'es6-promise/auto'
 import Customer from './components/Customer';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -8,6 +7,7 @@ import TableHead from '@material-ui/core/TableHead';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import './App.css';
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
@@ -21,37 +21,29 @@ const styles = theme => ({
   }
 })
 
-const customers = [
-  {
-    'id':'1',
-    'image':'https://placeimg.com/64/64/1',
-    'name': '김동현',
-    'birthday':'910605',
-    'gender':'남자',
-    'job':'프로그래머'
-  },
-  {
-    'id':'2',
-    'image':'https://placeimg.com/64/64/2',
-    'name': '강상원',
-    'birthday':'910605',
-    'gender':'남자',
-    'job':'배송기사'
-  },
-  {
-    'id':'3',
-    'image':'https://placeimg.com/64/64/3',
-    'name': '소나타',
-    'birthday':'020101',
-    'gender':'남자',
-    'job':'폐기물'
-  }
-]
+
   
 class App extends Component {
+
+  state = {
+    customers: ""
+  }
+
+  componentDidMount() {
+    this.callApi()
+      .then(res => this.setState({customers: res}))
+      .catch(err => console.log(err));
+  }
+
+  callApi = async () => {
+    const response = await fetch('/api/customers');
+    const body = await response.json();
+    return body;
+  }
+
   render() {
     const { classes } = this.props;
-    return ( 
+    return (
       <Paper className={classes.root}>
         <Table className={classes.table}> 
             <TableHead>
@@ -65,7 +57,9 @@ class App extends Component {
               </TableRow>
             </TableHead>
             <TableBody>
-              {customers.map(c => { return ( <Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job} /> );})}
+              {this.state.customers ? this.state.customers.map(c => { 
+                return ( <Customer key={c.id} id={c.id} image={c.image} name={c.name} birthday={c.birthday} gender={c.gender} job={c.job} /> );
+              }) : ""}
             </TableBody>
         </Table>
       </Paper>
